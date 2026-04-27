@@ -1,6 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { ProductMedia } from './product-media.entity';
-import { ProductStatus } from '../dto/create-product.dto';
+import { Category } from './category.entity';
+
+export enum ProductPublishStatus {
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+}
+
+export enum ProductStockStatus {
+  IN_STOCK = 'in-stock',
+  LOW_STOCK = 'low-stock',
+  OUT_OF_STOCK = 'out-of-stock',
+}
 
 @Entity('products')
 export class Product {
@@ -22,15 +33,29 @@ export class Product {
   @Column({ default: 'USD' })
   currency: string;
 
+  @ManyToOne(() => Category, (category) => category.products, { onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'categoryId' })
+  category: Category;
+
   @Column({ type: 'uuid', nullable: true })
   categoryId: string;
 
   @Column({
     type: 'enum',
-    enum: ProductStatus,
-    default: ProductStatus.IN_STOCK,
+    enum: ProductStockStatus,
+    default: ProductStockStatus.IN_STOCK,
   })
-  status: ProductStatus;
+  stockStatus: ProductStockStatus;
+
+  @Column({
+    type: 'enum',
+    enum: ProductPublishStatus,
+    default: ProductPublishStatus.DRAFT,
+  })
+  publishStatus: ProductPublishStatus;
+
+  @Column({ type: 'jsonb', default: {} })
+  metadata: Record<string, string>;
 
   @OneToMany(() => ProductMedia, media => media.product)
   media: ProductMedia[];

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 
@@ -10,12 +11,28 @@ export default function InventoryPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">Inventory</h1>
-        <Button variant="primary" className="flex items-center gap-2">
-          <Plus size={18} />
-          Add Product
-        </Button>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">Inventory</h1>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
+            Manage your product catalog and categories from this dashboard.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link href="/inventory/categories" className="inline-flex">
+            <Button variant="secondary" className="gap-2">
+              <Plus size={18} />
+              Manage Categories
+            </Button>
+          </Link>
+          <Link href="/inventory/create" className="inline-flex">
+            <Button variant="primary" className="flex items-center gap-2">
+              <Plus size={18} />
+              Add Product
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-charcoal border border-gray-100 dark:border-charcoal-light shadow-sm rounded-xl overflow-hidden">

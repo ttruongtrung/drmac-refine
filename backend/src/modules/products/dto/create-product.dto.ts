@@ -1,10 +1,5 @@
-import { IsString, IsNumber, IsOptional, IsEnum, IsUUID } from 'class-validator';
-
-export enum ProductStatus {
-  IN_STOCK = 'in-stock',
-  COMING_SOON = 'coming-soon',
-  ARCHIVED = 'archived',
-}
+import { IsString, IsNumber, IsOptional, IsEnum, IsUUID, IsObject } from 'class-validator';
+import { ProductPublishStatus, ProductStockStatus } from '../entities/product.entity';
 
 export class CreateProductDto {
   @IsString()
@@ -21,12 +16,22 @@ export class CreateProductDto {
   price: number;
 
   @IsString()
-  currency: string;
+  @IsOptional()
+  currency?: string;
 
   @IsUUID()
   @IsOptional()
   categoryId?: string;
 
-  @IsEnum(ProductStatus)
-  status: ProductStatus;
+  @IsEnum(ProductStockStatus)
+  @IsOptional()
+  stockStatus?: ProductStockStatus;
+
+  @IsEnum(ProductPublishStatus)
+  @IsOptional()
+  publishStatus?: ProductPublishStatus;
+
+  @IsObject()
+  @IsOptional()
+  metadata?: Record<string, string>;
 }

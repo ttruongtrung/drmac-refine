@@ -30,6 +30,9 @@ export class ProductMedia {
   @Column({ type: 'int', default: 0 })
   displayOrder: number;
 
+  @Column({ type: 'boolean', default: false })
+  isThumbnail: boolean;
+
   @ManyToOne(() => Product, product => product.media, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'productId' })
   product: Product;
