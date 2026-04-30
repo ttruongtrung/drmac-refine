@@ -77,17 +77,8 @@ export class ProductsController {
           file.mimetype,
         );
       } else {
-        // Fallback: local disk storage
-        const fs = await import('fs');
-        const path = await import('path');
-        const uploadDir = './uploads/products';
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir, { recursive: true });
-        }
-        const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${extname(file.originalname)}`;
-        const filePath = path.join(uploadDir, fileName);
-        fs.writeFileSync(filePath, file.buffer);
-        originalUrl = `/uploads/products/${fileName}`;
+        // Fallback: store a placeholder reference — serverless envs can't write to disk
+        originalUrl = 'https://via.placeholder.com/800?text=Product+Image';
       }
     }
 

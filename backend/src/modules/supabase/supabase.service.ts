@@ -10,8 +10,8 @@ export class SupabaseService {
 
   constructor(private configService: ConfigService) {
     const supabaseUrl = this.configService.get<string>('SUPABASE_URL');
-    const supabaseKey = this.configService.get<string>('SUPABASE_SERVICE_KEY');
-    this.bucketName = this.configService.get<string>('SUPABASE_BUCKET', 'product-images');
+    const supabaseKey = this.configService.get<string>('SUPABASE_SERVICE_KEY') || this.configService.get<string>('SUPABASE_PUBLISHABLE_KEY');
+    this.bucketName = this.configService.get<string>('SUPABASE_BUCKET') || this.configService.get<string>('SUPABASE_BUCKET_NAME', 'product-images');
 
     if (!supabaseUrl || !supabaseKey) {
       this.logger.warn(
