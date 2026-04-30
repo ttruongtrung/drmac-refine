@@ -30,11 +30,29 @@ function mapApiProductToCard(product: ApiProduct): ProductCardProps {
 
 function SearchClient() {
   const searchParams = useSearchParams();
-  const q = searchParams.get('q') || '';
+  const urlQ = searchParams.get('q') || '';
   const router = useRouter();
   const [allProducts, setAllProducts] = useState<ProductCardProps[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  // Local search state for responsive typing
+  const [searchInput, setSearchInput] = useState(urlQ);
+
+  // Sync URL param into local state on mount / back-navigation
+  useEffect(() => {
+    setSearchInput(urlQ);
+  }, [urlQ]);
+
+  // Debounce: update URL 400ms after user stops typing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const newQuery = searchInput.trim();
+      if (newQuery !== urlQ) {
+        router.replace(newQuery ? `?q=${encodeURIComponent(newQuery)}` : '?', { scroll: false });
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchInput, urlQ, router]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -69,17 +87,18 @@ function SearchClient() {
       );
     }
 
-    // Text Search Filter
-    if (q) {
+    // Text Search Filter (from local state for responsiveness)
+    const searchTerm = searchInput.trim().toLowerCase();
+    if (searchTerm) {
       results = results.filter(p =>
-        p.title.toLowerCase().includes(q.toLowerCase())
+        p.title.toLowerCase().includes(searchTerm)
       );
     }
 
     return results;
-  }, [allProducts, selectedCategories, q]);
+  }, [allProducts, selectedCategories, searchInput]);
 
-  const displayQuery = q || selectedCategories.join(', ') || 'All Products';
+  const displayQuery = searchInput.trim() || selectedCategories.join(', ') || 'All Products';
 
   return (
     <div className="pt-24 px-4 lg:px-8 max-w-[1600px] mx-auto min-h-screen">
@@ -101,7 +120,7 @@ function SearchClient() {
                   {(() => {
                     const uniqueCategories = [...new Set(allProducts.flatMap(p => p.tags || []))];
                     return uniqueCategories.length > 0 ? uniqueCategories.map(cat => (
-                      <label key={cat} className="flex items-center gap-3 cursor-pointer group" onClick={(e) => { e.preventDefault(); toggleCategory(cat); }}>
+                      <div key={cat} className="flex items-center gap-3 cursor-pointer group" onClick={() => toggleCategory(cat)}>
                         <div className={cn(
                           "w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors",
                           selectedCategories.includes(cat)
@@ -115,7 +134,7 @@ function SearchClient() {
                           )}
                         </div>
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white capitalize">{cat}</span>
-                      </label>
+                      </div>
                     )) : <p className="text-sm text-gray-400">No categories</p>;
                   })()}
                 </div>
@@ -131,16 +150,13 @@ function SearchClient() {
             <span className="text-gray-400 text-lg">for "{displayQuery}"</span>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar — uses local state for smooth typing */}
           <div className="w-full mb-6">
             <input
               type="text"
               placeholder="Search products..."
-              value={q}
-              onChange={(e) => {
-                const newQuery = e.target.value;
-                router.replace(`?q=${encodeURIComponent(newQuery)}`);
-              }}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-charcoal-light text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
           </div>

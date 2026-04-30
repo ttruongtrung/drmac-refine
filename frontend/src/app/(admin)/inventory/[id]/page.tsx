@@ -95,12 +95,12 @@ export default function EditProductPage() {
           setStockStatus((product.stockStatus as string) || 'in-stock');
           setPublishStatus((product.publishStatus as string) || 'draft');
 
-          // Load dynamic fields from metadata
+          // Load dynamic fields from metadata — key IS the label
           if (product.metadata && typeof product.metadata === 'object') {
             const metadata = product.metadata as Record<string, string>;
             const fields = Object.entries(metadata).map(([key, value]) => ({
               id: key,
-              label: key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1'),
+              label: key,
               value: value || '',
             }));
             setDynamicFields(fields);
@@ -222,7 +222,7 @@ export default function EditProductPage() {
 
     try {
       const dynamicFieldsObject = dynamicFields.reduce(
-        (acc, field) => ({ ...acc, [field.id]: field.value }),
+        (acc, field) => ({ ...acc, [field.label]: field.value }),
         {}
       );
 

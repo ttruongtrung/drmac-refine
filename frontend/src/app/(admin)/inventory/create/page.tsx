@@ -164,7 +164,7 @@ export default function CreateProductPage() {
 
     try {
       const dynamicFieldsObject = dynamicFields.reduce(
-        (acc, field) => ({ ...acc, [field.id]: field.value }),
+        (acc, field) => ({ ...acc, [field.label]: field.value }),
         {}
       );
 
