@@ -109,13 +109,13 @@ function SearchClient() {
           <div className="bg-white dark:bg-charcoal border border-gray-100 dark:border-charcoal-light p-6 rounded-[24px] sticky top-24 shadow-sm">
             <div className="flex items-center gap-2 mb-8">
               <Filter size={18} className="text-blue-600 dark:text-gold" />
-              <h3 className="text-lg font-bold text-black dark:text-white">Filters</h3>
+              <h3 className="text-lg font-bold text-black dark:text-white">Bộ lọc</h3>
             </div>
 
             <div className="space-y-8">
               {/* Category */}
               <div>
-                <h4 className="text-[11px] font-bold text-gray-400 tracking-widest uppercase mb-4">Category</h4>
+                <h4 className="text-[11px] font-bold text-gray-400 tracking-widest uppercase mb-4">Danh mục</h4>
                 <div className="space-y-3">
                   {(() => {
                     const uniqueCategories = [...new Set(allProducts.flatMap(p => p.tags || []))];
@@ -135,7 +135,7 @@ function SearchClient() {
                         </div>
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white capitalize">{cat}</span>
                       </div>
-                    )) : <p className="text-sm text-gray-400">No categories</p>;
+                    )) : <p className="text-sm text-gray-400">Không có danh mục</p>;
                   })()}
                 </div>
               </div>
@@ -146,15 +146,15 @@ function SearchClient() {
         {/* Results Grid */}
         <div className="flex-1">
           <div className="flex items-baseline gap-2 mb-6">
-            <h1 className="text-2xl font-bold text-black dark:text-white">{filteredProducts.length} Results</h1>
-            <span className="text-gray-400 text-lg">for "{displayQuery}"</span>
+            <h1 className="text-2xl font-bold text-black dark:text-white">{filteredProducts.length} Kết quả</h1>
+            <span className="text-gray-400 text-lg">cho "{displayQuery}"</span>
           </div>
 
           {/* Search Bar — uses local state for smooth typing */}
           <div className="w-full mb-6">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Tìm kiếm sản phẩm..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-charcoal-light text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -173,12 +173,12 @@ function SearchClient() {
             </div>
           ) : (
             <div className="py-24 text-center">
-              <p className="text-gray-500 dark:text-gray-400 text-lg">No products found matching your filters.</p>
+              <p className="text-gray-500 dark:text-gray-400 text-lg">Không tìm thấy sản phẩm phù hợp.</p>
               <button
                 onClick={() => { setSelectedCategories([]); }}
                 className="mt-4 text-blue-600 dark:text-gold font-medium hover:underline"
               >
-                Clear all filters
+                Xoá bộ lọc
               </button>
             </div>
           )}
@@ -191,7 +191,7 @@ function SearchClient() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Đang tải...</div>}>
       <SearchClient />
     </Suspense>
   );

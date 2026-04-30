@@ -64,7 +64,7 @@ export function ProductCard({ id, title, price, img, rating, tags, badge, classN
                 {idx < tags.length - 1 && <span>•</span>}
               </span>
             )) : (
-              <span className="text-gray-400 truncate max-w-[120px]">{slug || 'Explore'}</span>
+              <span className="text-gray-400 truncate max-w-[120px]">{slug || 'Thương hiệu'}</span>
             )}
           </div>
           {rating && (

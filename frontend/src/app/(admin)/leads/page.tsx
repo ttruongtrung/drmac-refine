@@ -50,18 +50,18 @@ export default function LeadsPage() {
         setSelectedContact((prev) => prev ? { ...prev, status: newStatus as 'unread' | 'read' } : null);
       }
     } catch {
-      alert('Failed to update contact status.');
+      alert('Cập nhật trạng thái thất bại.');
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this inquiry permanently?')) return;
+    if (!confirm('Xoá yêu cầu này vĩnh viễn?')) return;
     try {
       await apiClient.deleteContact(id);
       setContacts((prev) => prev.filter((c) => c.id !== id));
       if (selectedContact?.id === id) setSelectedContact(null);
     } catch {
-      alert('Failed to delete contact.');
+      alert('Xoá liên hệ thất bại.');
     }
   };
 
@@ -78,7 +78,7 @@ export default function LeadsPage() {
   return (
     <div>
       <h1 className="text-3xl font-bold text-black dark:text-white mb-8 border-l-4 border-blue-600 dark:border-gold pl-3">
-        Leads Inbox
+        Hộp thư khách hàng
       </h1>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -86,23 +86,23 @@ export default function LeadsPage() {
         <div className={`bg-white dark:bg-charcoal border border-gray-100 dark:border-charcoal-light shadow-sm rounded-xl overflow-hidden ${selectedContact ? 'hidden xl:block' : 'block'} xl:col-span-1`}>
           <div className="px-6 py-4 border-b border-gray-100 dark:border-charcoal-light flex items-center justify-between">
             <h2 className="font-semibold text-black dark:text-white">
-              Inquiries <span className="text-gray-400 text-sm font-normal">({contacts.length})</span>
+              Yêu cầu <span className="text-gray-400 text-sm font-normal">({contacts.length})</span>
             </h2>
             <div className="flex gap-1">
               <button
                 onClick={fetchContacts}
                 className="text-xs text-blue-600 dark:text-gold hover:underline"
               >
-                Refresh
+                Làm mới
               </button>
             </div>
           </div>
 
           {loading ? (
-            <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</div>
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400">Đang tải...</div>
           ) : contacts.length === 0 ? (
             <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-              No inquiries yet. Customer messages will appear here.
+              Chưa có yêu cầu nào. Tin nhắn khách hàng sẽ xuất hiện ở đây.
             </div>
           ) : (
             <div className="divide-y divide-gray-100 dark:divide-charcoal-light max-h-[600px] overflow-y-auto">
@@ -120,7 +120,7 @@ export default function LeadsPage() {
                         {contact.name}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">
-                        {contact.subject || 'No subject'} — {contact.message.slice(0, 50)}...
+                        {contact.subject || 'Không có tiêu đề'} — {contact.message.slice(0, 50)}...
                       </p>
                       <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 flex items-center gap-1">
                         <Calendar size={10} /> {formatDate(contact.createdAt)}
@@ -129,14 +129,14 @@ export default function LeadsPage() {
                     <div className="flex gap-1 shrink-0">
                       <button
                         onClick={(e) => { e.stopPropagation(); handleMarkRead(contact.id, contact.status); }}
-                        title={contact.status === 'unread' ? 'Mark as read' : 'Mark as unread'}
+                        title={contact.status === 'unread' ? 'Đánh dấu đã đọc' : 'Đánh dấu chưa đọc'}
                         className="p-1.5 text-gray-400 hover:text-blue-600 dark:hover:text-gold transition-colors"
                       >
                         {contact.status === 'unread' ? <Eye size={14} /> : <EyeOff size={14} />}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleDelete(contact.id); }}
-                        title="Delete"
+                        title="Xoá"
                         className="p-1.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                       >
                         <Trash2 size={14} />
@@ -173,7 +173,7 @@ export default function LeadsPage() {
                         ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400'
                         : 'bg-green-50 text-green-600 dark:bg-green-950/50 dark:text-green-400'
                     }`}>
-                      {selectedContact.status === 'unread' ? 'Unread' : 'Read'}
+                      {selectedContact.status === 'unread' ? 'Chưa đọc' : 'Đã đọc'}
                     </span>
                   </div>
                 </div>
@@ -184,27 +184,27 @@ export default function LeadsPage() {
                     onClick={() => handleMarkRead(selectedContact.id, selectedContact.status)}
                   >
                     {selectedContact.status === 'unread' ? <Eye size={14} /> : <EyeOff size={14} />}
-                    {selectedContact.status === 'unread' ? 'Mark Read' : 'Mark Unread'}
+                    {selectedContact.status === 'unread' ? 'Đã đọc' : 'Chưa đọc'}
                   </Button>
                   <Button
                     variant="secondary"
                     className="h-9 text-xs gap-1.5 text-red-600 border-red-200 hover:bg-red-50 dark:border-red-900/50 dark:hover:bg-red-950/30"
                     onClick={() => handleDelete(selectedContact.id)}
                   >
-                    <Trash2 size={14} /> Delete
+                    <Trash2 size={14} /> Xoá
                   </Button>
                 </div>
               </div>
 
               {selectedContact.subject && (
                 <div className="mb-4">
-                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Subject</p>
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Chủ đề</p>
                   <p className="text-black dark:text-white font-medium">{selectedContact.subject}</p>
                 </div>
               )}
 
               <div>
-                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Message</p>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Nội dung</p>
                 <div className="bg-gray-50 dark:bg-[#111] rounded-xl p-4 text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
                   {selectedContact.message}
                 </div>
@@ -214,8 +214,8 @@ export default function LeadsPage() {
             <div className="flex-1 flex items-center justify-center text-gray-400 dark:text-gray-500">
               <div className="text-center">
                 <Mail size={48} className="mx-auto mb-4 opacity-30" />
-                <p className="text-lg font-medium">Select an inquiry</p>
-                <p className="text-sm mt-1">Choose a message from the list to view its details.</p>
+                <p className="text-lg font-medium">Chọn một yêu cầu</p>
+                <p className="text-sm mt-1">Chọn tin nhắn từ danh sách để xem chi tiết.</p>
               </div>
             </div>
           )}

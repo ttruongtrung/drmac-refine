@@ -8,14 +8,14 @@ import { Button } from '@/components/ui/button';
 import { apiClient, API_BASE_URL } from '@/lib/api-client';
 
 const stockStatusOptions = [
-  { value: 'in-stock', label: 'In Stock' },
-  { value: 'low-stock', label: 'Low Stock' },
-  { value: 'out-of-stock', label: 'Out of Stock' },
+  { value: 'in-stock', label: 'Còn hàng' },
+  { value: 'low-stock', label: 'Sắp hết' },
+  { value: 'out-of-stock', label: 'Hết hàng' },
 ];
 
 const publishStatusOptions = [
-  { value: 'draft', label: 'Draft' },
-  { value: 'published', label: 'Published' },
+  { value: 'draft', label: 'Bản nháp' },
+  { value: 'published', label: 'Đã xuất bản' },
 ];
 
 interface Category {
@@ -120,10 +120,10 @@ export default function EditProductPage() {
             setImages(productImages);
           }
         } else {
-          setError('Product not found.');
+          setError('Không tìm thấy sản phẩm.');
         }
       } catch {
-        setError('Failed to load product.');
+        setError('Tải sản phẩm thất bại.');
       } finally {
         setFetching(false);
       }
@@ -144,7 +144,7 @@ export default function EditProductPage() {
 
   const handleAddField = () => {
     if (!newFieldLabel.trim()) {
-      setError('Field label cannot be empty.');
+      setError('Tên trường không được để trống.');
       return;
     }
 
@@ -200,18 +200,18 @@ export default function EditProductPage() {
     const parsedPrice = Number(price);
 
     if (!title.trim() || !slug.trim() || !price.trim() || !categoryId.trim()) {
-      setError('Please provide title, slug, price, and category.');
+      setError('Vui lòng nhập tên, slug, giá và danh mục.');
       return;
     }
 
     if (Number.isNaN(parsedPrice) || parsedPrice <= 0) {
-      setError('Price must be a valid number greater than zero.');
+      setError('Giá phải là số hợp lệ lớn hơn 0.');
       return;
     }
 
     const incompleteDynamicField = dynamicFields.find((field) => !field.value.trim());
     if (incompleteDynamicField) {
-      setError(`Please fill in the "${incompleteDynamicField.label}" field.`);
+      setError(`Vui lòng nhập trường "${incompleteDynamicField.label}".`);
       return;
     }
 
@@ -239,7 +239,7 @@ export default function EditProductPage() {
       });
 
       if (response.error) {
-        setError(response.error || 'Failed to update product.');
+        setError('Cập nhật sản phẩm thất bại.');
         setLoading(false);
         return;
       }
@@ -256,9 +256,9 @@ export default function EditProductPage() {
       }
 
       setSaved(true);
-      setSuccess('Product updated successfully!');
+      setSuccess('Cập nhật sản phẩm thành công!');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred.');
+      setError(err instanceof Error ? err.message : 'Đã có lỗi xảy ra.');
     } finally {
       setLoading(false);
     }
@@ -267,7 +267,7 @@ export default function EditProductPage() {
   if (fetching) {
     return (
       <div className="flex items-center justify-center py-32">
-        <div className="text-gray-500 dark:text-gray-400 text-lg">Loading product...</div>
+        <div className="text-gray-500 dark:text-gray-400 text-lg">Đang tải...</div>
       </div>
     );
   }
@@ -277,16 +277,16 @@ export default function EditProductPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">
-            Edit Product
+            Sửa sản phẩm
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
-            Update product details, attributes, and images.
+            Cập nhật thông tin sản phẩm, thuộc tính và hình ảnh.
           </p>
         </div>
 
         <Link href="/inventory" className="inline-flex">
           <Button variant="secondary" className="gap-2">
-            <ArrowLeft size={16} /> Back to Inventory
+            <ArrowLeft size={16} /> Quay lại Kho hàng
           </Button>
         </Link>
       </div>
@@ -307,10 +307,10 @@ export default function EditProductPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Mandatory Fields */}
           <div>
-            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Mandatory Fields</h3>
+            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Trường bắt buộc</h3>
             <div className="grid gap-6 sm:grid-cols-2">
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Product Title
+                Tên sản phẩm
                 <input
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
@@ -332,7 +332,7 @@ export default function EditProductPage() {
 
             <div className="grid gap-6 sm:grid-cols-2 mt-6">
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Price
+                Giá
                 <input
                   value={price}
                   onChange={(event) => setPrice(event.target.value)}
@@ -345,7 +345,7 @@ export default function EditProductPage() {
               </label>
 
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Currency
+                Tiền tệ
                 <div className="relative">
                   <select
                     value={currency}
@@ -366,19 +366,19 @@ export default function EditProductPage() {
             </div>
 
             <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300 block mt-6">
-              Description
+              Mô tả
               <textarea
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
                 rows={3}
                 className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black shadow-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-charcoal-light dark:bg-[#111111] dark:text-white dark:focus:border-gold dark:focus:ring-gold/20"
-                placeholder="A premium Apple notebook with the latest M3 Max silicon..."
+                placeholder="Mô tả sản phẩm Apple cao cấp với chip M3 Max..."
               />
             </label>
 
             <div className="grid gap-6 sm:grid-cols-3 mt-6">
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Category
+                Danh mục
                 <div className="flex gap-3 items-center">
                   <div className="relative flex-1">
                     <select
@@ -387,7 +387,7 @@ export default function EditProductPage() {
                       className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black shadow-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-charcoal-light dark:bg-[#111111] dark:text-white dark:focus:border-gold dark:focus:ring-gold/20 appearance-none cursor-pointer pr-10"
                     >
                       <option value="">
-                        {categoriesLoading ? 'Loading categories...' : 'Select category'}
+                        {categoriesLoading ? 'Đang tải...' : 'Chọn danh mục'}
                       </option>
                       {categoryOptions.map((category) => (
                         <option key={category.id} value={category.id}>
@@ -402,13 +402,13 @@ export default function EditProductPage() {
                     </div>
                   </div>
                   <Link href="/inventory/categories" className="text-xs text-blue-600 dark:text-gold hover:underline whitespace-nowrap">
-                    Manage
+                    Quản lý
                   </Link>
                 </div>
               </label>
 
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Stock Status
+                Tình trạng kho
                 <div className="relative">
                   <select
                     value={stockStatus}
@@ -430,7 +430,7 @@ export default function EditProductPage() {
               </label>
 
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Publish Status
+                Trạng thái xuất bản
                 <div className="relative">
                   <select
                     value={publishStatus}
@@ -455,7 +455,7 @@ export default function EditProductPage() {
 
           {/* Dynamic Fields */}
           <div className="border-t border-gray-100 dark:border-charcoal-light pt-6">
-            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Dynamic Fields</h3>
+            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Trường động</h3>
 
             {dynamicFields.length > 0 && (
               <div className="space-y-4 mb-6">
@@ -467,7 +467,7 @@ export default function EditProductPage() {
                         value={field.value}
                         onChange={(event) => handleDynamicFieldChange(field.id, event.target.value)}
                         className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black shadow-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-charcoal-light dark:bg-[#111111] dark:text-white dark:focus:border-gold dark:focus:ring-gold/20"
-                        placeholder={`Enter ${field.label.toLowerCase()}`}
+                        placeholder={`Nhập ${field.label.toLowerCase()}`}
                       />
                     </label>
                     <button
@@ -493,20 +493,20 @@ export default function EditProductPage() {
                   }
                 }}
                 className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black shadow-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-charcoal-light dark:bg-[#111111] dark:text-white dark:focus:border-gold dark:focus:ring-gold/20"
-                placeholder="Add a new field (e.g., Warranty, Weight)"
+                placeholder="Thêm trường mới (VD: Ram, Ổ cứng, Màu sắc)"
               />
               <button
                 type="button"
                 onClick={handleAddField}
                 className="px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 dark:bg-gold dark:text-charcoal dark:hover:bg-gold-light transition-colors flex items-center gap-2 whitespace-nowrap"
               >
-                <Plus size={16} /> Add
+                <Plus size={16} /> Thêm
               </button>
             </div>
 
             {/* Image upload and preview */}
             <div className="mt-6">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Images</h4>
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Hình ảnh</h4>
 
               <div className="flex items-center gap-3 mb-4">
                 <input
@@ -524,14 +524,14 @@ export default function EditProductPage() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={img.previewUrl || (img.originalUrl.startsWith('/uploads') ? `${API_BASE_URL}${img.originalUrl}` : img.originalUrl)}
-                      alt="preview"
+                      alt="Xem trước"
                       className="w-full h-24 object-cover"
                     />
 
                     <div className="absolute top-1 right-1 flex gap-1">
                       <button
                         type="button"
-                        title="Set as thumbnail"
+                        title="Đặt làm ảnh đại diện"
                         onClick={() => handleSetThumbnail(img.id)}
                         className={`p-1 rounded-full bg-white/80 dark:bg-black/60 ${
                           img.isThumbnail ? 'ring-2 ring-blue-500' : ''
@@ -542,7 +542,7 @@ export default function EditProductPage() {
 
                       <button
                         type="button"
-                        title="Remove"
+                        title="Xoá"
                         onClick={() => handleRemoveImage(img.id)}
                         className="p-1 rounded-full bg-white/80 dark:bg-black/60"
                       >
@@ -564,18 +564,18 @@ export default function EditProductPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2 border-t border-gray-100 dark:border-charcoal-light mt-6">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Save changes to update this product.
+                Lưu thay đổi để cập nhật sản phẩm này.
               </p>
             </div>
             <div className="flex gap-3">
               <Link href="/inventory">
                 <Button type="button" variant="secondary">
-                  Cancel
+                  Huỷ
                 </Button>
               </Link>
               <Button type="submit" variant="primary" className="gap-2" disabled={loading}>
                 <Save size={16} />
-                {loading ? 'Saving...' : 'Save Changes'}
+                {loading ? 'Đang lưu...' : 'Lưu thay đổi'}
               </Button>
             </div>
           </div>

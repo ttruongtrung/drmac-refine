@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dr.Mac - Premium Apple Products",
-  description: "Experience the ultimate performance. Luxury Apple products and services.",
+  title: "Dr.Mac - Sản phẩm Apple Cao cấp",
+  description: "Trải nghiệm hiệu năng đỉnh cao. Các sản phẩm và dịch vụ Apple cao cấp.",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="vi" suppressHydrationWarning>
       <body className={`${inter.className} antialiased transition-colors duration-300`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

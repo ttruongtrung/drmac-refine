@@ -39,14 +39,14 @@ export function ProductRow({ title, products }: ProductRowProps) {
         <button 
           onClick={() => scrollBy(-300)}
           className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 p-3 rounded-r-xl opacity-0 group-hover:opacity-100 transition-opacity hidden md:block shadow-lg"
-          aria-label="Scroll left"
+          aria-label="Cuộn trái"
         >
           <ChevronLeft className="text-black dark:text-white" size={32} />
         </button>
         <button 
           onClick={() => scrollBy(300)}
           className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 p-3 rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity hidden md:block shadow-lg"
-          aria-label="Scroll right"
+          aria-label="Cuộn phải"
         >
           <ChevronRight className="text-black dark:text-white" size={32} />
         </button>

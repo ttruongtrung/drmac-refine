@@ -9,9 +9,9 @@ export function Sidebar() {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/inventory', label: 'Inventory', icon: Package },
-    { href: '/leads', label: 'Leads Inbox', icon: MessageSquare },
+    { href: '/dashboard', label: 'Bảng điều khiển', icon: LayoutDashboard },
+    { href: '/inventory', label: 'Kho hàng', icon: Package },
+    { href: '/leads', label: 'Hộp thư khách hàng', icon: MessageSquare },
   ];
 
   const isActive = (href: string) => {
@@ -24,7 +24,7 @@ export function Sidebar() {
       <div>
         <div className="h-20 flex items-center px-8 border-b border-gray-100 dark:border-charcoal-light">
           <Link href="/" className="text-blue-600 dark:text-gold font-bold text-2xl tracking-wider">
-            Dr.Mac <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Admin</span>
+            Dr.Mac <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Quản trị</span>
           </Link>
         </div>
         
@@ -54,7 +54,7 @@ export function Sidebar() {
       <div className="p-4 border-t border-gray-100 dark:border-charcoal-light">
         <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg font-medium transition-colors">
           <LogOut size={20} />
-          Logout
+          Đăng xuất
         </button>
       </div>
     </aside>

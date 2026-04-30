@@ -54,9 +54,9 @@ export default function InventoryPage() {
 
   const statusLabel = (status: string) => {
     switch (status) {
-      case 'in-stock': return 'In Stock';
-      case 'low-stock': return 'Low Stock';
-      case 'out-of-stock': return 'Out of Stock';
+      case 'in-stock': return 'Còn hàng';
+      case 'low-stock': return 'Sắp hết';
+      case 'out-of-stock': return 'Hết hàng';
       default: return status;
     }
   };
@@ -75,12 +75,12 @@ export default function InventoryPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this product?')) return;
+    if (!confirm('Bạn có chắc muốn xoá sản phẩm này?')) return;
     try {
       await apiClient.deleteProduct(id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch {
-      alert('Failed to delete product.');
+      alert('Xoá sản phẩm thất bại.');
     }
   };
 
@@ -88,9 +88,9 @@ export default function InventoryPage() {
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">Inventory</h1>
+          <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">Kho hàng</h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
-            Manage your product catalog and categories from this dashboard.
+            Quản lý danh mục sản phẩm và phân loại từ bảng điều khiển này.
           </p>
         </div>
 
@@ -98,13 +98,13 @@ export default function InventoryPage() {
           <Link href="/inventory/categories" className="inline-flex">
             <Button variant="secondary" className="gap-2">
               <Plus size={18} />
-              Manage Categories
+              Quản lý danh mục
             </Button>
           </Link>
           <Link href="/inventory/create" className="inline-flex">
             <Button variant="primary" className="flex items-center gap-2">
               <Plus size={18} />
-              Add Product
+              Thêm sản phẩm
             </Button>
           </Link>
         </div>
@@ -112,23 +112,23 @@ export default function InventoryPage() {
 
       <div className="bg-white dark:bg-charcoal border border-gray-100 dark:border-charcoal-light shadow-sm rounded-xl overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading products...</div>
+          <div className="p-8 text-center text-gray-500 dark:text-gray-400">Đang tải sản phẩm...</div>
         ) : products.length === 0 ? (
           <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-            No products yet.{" "}
+            Chưa có sản phẩm nào.{" "}
             <Link href="/inventory/create" className="text-blue-600 dark:text-gold hover:underline">
-              Create your first product
+              Tạo sản phẩm đầu tiên
             </Link>
           </div>
         ) : (
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 dark:bg-charcoal border-b border-gray-100 dark:border-charcoal-light">
-                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Product</th>
-                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Price</th>
-                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Status</th>
-                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Added</th>
-                <th className="p-4 text-right text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Actions</th>
+                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Sản phẩm</th>
+                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Giá</th>
+                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Trạng thái</th>
+                <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Ngày tạo</th>
+                <th className="p-4 text-right text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-charcoal-light">

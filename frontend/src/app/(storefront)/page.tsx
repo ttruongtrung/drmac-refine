@@ -71,8 +71,8 @@ export default function Home() {
       
       <div className="pt-24 pb-8 px-6 lg:px-12 flex flex-col md:flex-row justify-between items-end md:items-center gap-6">
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-2">Explore the Lineup</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-lg">Find the perfect device for your workflow.</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-2">Khám phá Bộ sưu tập</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">Tìm thiết bị hoàn hảo cho công việc của bạn.</p>
         </div>
 
         {/* Category filter */}
@@ -86,7 +86,7 @@ export default function Home() {
                 : 'text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white'
             )}
           >
-            All
+            Tất cả
           </button>
           {categories.map((cat) => (
             <button
@@ -107,14 +107,14 @@ export default function Home() {
 
       {loading ? (
         <div className="flex items-center justify-center py-32">
-          <div className="animate-pulse text-gray-400">Loading products...</div>
+          <div className="animate-pulse text-gray-400">Đang tải sản phẩm...</div>
         </div>
       ) : (
         <>
-          <ProductRow title="Featured Products" products={filteredProducts} />
+          <ProductRow title="Sản phẩm nổi bật" products={filteredProducts} />
           {filteredProducts.length === 0 && (
             <div className="text-center py-20 text-gray-500 dark:text-gray-400">
-              No products found in this category.
+              Không có sản phẩm nào trong danh mục này.
             </div>
           )}
         </>

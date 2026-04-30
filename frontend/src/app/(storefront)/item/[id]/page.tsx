@@ -58,7 +58,7 @@ export default function ProductDetailPage() {
   if (loading) {
     return (
       <div className="pt-24 min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-gray-400">Loading product...</div>
+        <div className="animate-pulse text-gray-400">Đang tải...</div>
       </div>
     );
   }
@@ -66,10 +66,10 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="pt-24 min-h-screen flex flex-col items-center justify-center gap-4">
-        <h2 className="text-2xl font-bold text-black dark:text-white">Product Not Found</h2>
-        <p className="text-gray-500 dark:text-gray-400">The product you're looking for doesn't exist.</p>
+        <h2 className="text-2xl font-bold text-black dark:text-white">Không tìm thấy sản phẩm</h2>
+        <p className="text-gray-500 dark:text-gray-400">Sản phẩm bạn đang tìm không tồn tại.</p>
         <Link href="/">
-          <Button variant="primary">Browse Products</Button>
+          <Button variant="primary">Xem sản phẩm</Button>
         </Link>
       </div>
     );
@@ -86,10 +86,10 @@ export default function ProductDetailPage() {
     <div className="pt-24 px-6 lg:px-12 max-w-7xl mx-auto min-h-screen">
       {/* Breadcrumbs */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
-        <Link href="/" className="hover:text-black dark:hover:text-white transition-colors">Home</Link>
+        <Link href="/" className="hover:text-black dark:hover:text-white transition-colors">Trang chủ</Link>
         <ChevronRight size={14} />
         <Link href={`/search?q=${product.category?.name || ''}`} className="hover:text-black dark:hover:text-white transition-colors">
-          {product.category?.name || 'Products'}
+          {product.category?.name || 'Sản phẩm'}
         </Link>
         <ChevronRight size={14} />
         <span className="text-black dark:text-gold font-medium dark:font-normal">{product.title}</span>
@@ -147,7 +147,7 @@ export default function ProductDetailPage() {
               ))}
               {product.category && (
                 <div className="border-b border-gray-200 dark:border-charcoal-light pb-4">
-                  <h3 className="text-sm text-gray-500 dark:text-gray-400 mb-1">Category</h3>
+                  <h3 className="text-sm text-gray-500 dark:text-gray-400 mb-1">Danh mục</h3>
                   <p className="text-black dark:text-white font-medium dark:font-normal capitalize">{product.category.name}</p>
                 </div>
               )}
@@ -155,15 +155,15 @@ export default function ProductDetailPage() {
 
             <div className="flex flex-col gap-4">
               <Button variant="primary" className="w-full py-6 text-lg rounded-xl">
-                Consult an Expert
+                Tư vấn chuyên gia
               </Button>
               <Button variant="secondary" className="w-full py-6 text-lg rounded-xl">
-                Reserve Now
+                Đặt trước
               </Button>
             </div>
             
             <p className="text-xs text-center text-gray-400 dark:text-gray-500 mt-4">
-              Product ID: {product.id}
+              Mã sản phẩm: {product.id}
             </p>
           </div>
         </div>

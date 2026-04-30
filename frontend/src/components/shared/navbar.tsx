@@ -29,8 +29,8 @@ export function Navbar() {
         <div className="hidden md:flex gap-6 text-sm text-gray-600 dark:text-gray-300">
           <Link href="/search?category=macbook" className="hover:text-black dark:hover:text-gold transition-colors">MacBook</Link>
           <Link href="/search?category=ipad" className="hover:text-black dark:hover:text-gold transition-colors">iPad</Link>
-          <Link href="/search?category=accessories" className="hover:text-black dark:hover:text-gold transition-colors">Accessories</Link>
-          <Link href="/contact" className="hover:text-black dark:hover:text-gold transition-colors">Contact</Link>
+          <Link href="/search?category=accessories" className="hover:text-black dark:hover:text-gold transition-colors">Phụ kiện</Link>
+          <Link href="/contact" className="hover:text-black dark:hover:text-gold transition-colors">Liên hệ</Link>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export function Navbar() {
           <form onSubmit={handleSearch} className="flex items-center animate-in slide-in-from-right-4 duration-300">
             <input 
               type="text" 
-              placeholder="Search products..." 
+              placeholder="Tìm kiếm sản phẩm..." 
               className="bg-white dark:bg-charcoal border border-gray-300 dark:border-charcoal-light text-black dark:text-white text-sm rounded-l-full pl-4 pr-2 py-2 focus:outline-none focus:border-black dark:focus:border-gold w-48 md:w-64"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

@@ -18,19 +18,19 @@ export function Hero() {
       {/* Hero Content */}
       <div className="relative z-10 max-w-2xl">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-          Power. <br/>
-          <span className="text-gray-300 dark:text-gold">Redefined.</span>
+        Sức mạnh. <br/>
+        <span className="text-gray-300 dark:text-gold">Tái định nghĩa.</span>
         </h1>
         <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
-          Experience the ultimate performance with the new MacBook Pro M3 Max. Available now at Dr.Mac.
+        Trải nghiệm hiệu năng đỉnh cao với MacBook Pro M3 Max mới. Đã có mặt tại Dr.Mac.
         </p>
         <div className="flex gap-4">
-          <Button variant="primary" className="rounded-full px-8 py-6 text-lg">
-            Reserve Now
-          </Button>
-          <Button variant="secondary" className="rounded-full px-8 py-6 text-lg bg-black/30 backdrop-blur-md !text-white !border-white hover:!bg-white/20 dark:!text-gold dark:!border-gold dark:hover:!bg-charcoal">
-            View Specs
-          </Button>
+        <Button variant="primary" className="rounded-full px-8 py-6 text-lg">
+          Đặt trước
+        </Button>
+        <Button variant="secondary" className="rounded-full px-8 py-6 text-lg bg-black/30 backdrop-blur-md !text-white !border-white hover:!bg-white/20 dark:!text-gold dark:!border-gold dark:hover:!bg-charcoal">
+          Xem thông số
+        </Button>
         </div>
       </div>
     </div>

@@ -264,7 +264,7 @@ export default function CreateProductPage() {
             <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Mandatory Fields</h3>
             <div className="grid gap-6 sm:grid-cols-2">
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Product Title
+                Tên sản phẩm
                 <input
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
@@ -286,7 +286,7 @@ export default function CreateProductPage() {
 
             <div className="grid gap-6 sm:grid-cols-2 mt-6">
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Price
+                Giá
                 <input
                   value={price}
                   onChange={(event) => setPrice(event.target.value)}
@@ -320,19 +320,19 @@ export default function CreateProductPage() {
             </div>
 
             <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300 block mt-6">
-              Description
+              Mô tả
               <textarea
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
                 rows={3}
                 className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black shadow-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-charcoal-light dark:bg-[#111111] dark:text-white dark:focus:border-gold dark:focus:ring-gold/20"
-                placeholder="A premium Apple notebook with the latest M3 Max silicon..."
+                placeholder="Mô tả sản phẩm Apple cao cấp với chip M3 Max..."
               />
             </label>
 
             <div className="grid gap-6 sm:grid-cols-3 mt-6">
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Category
+                Danh mục
                 <div className="flex gap-3 items-center">
                   <div className="relative flex-1">
                     <select
@@ -362,7 +362,7 @@ export default function CreateProductPage() {
               </label>
 
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Stock Status
+                Tình trạng kho
                 <div className="relative">
                   <select
                     value={stockStatus}
@@ -384,7 +384,7 @@ export default function CreateProductPage() {
               </label>
 
               <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Publish Status
+                Trạng thái xuất bản
                 <div className="relative">
                   <select
                     value={publishStatus}
@@ -409,7 +409,7 @@ export default function CreateProductPage() {
 
           {/* Dynamic Fields */}
           <div className="border-t border-gray-100 dark:border-charcoal-light pt-6">
-              <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Dynamic Fields</h3>
+              <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Trường động</h3>
 
               {dynamicFields.length > 0 && (
                 <div className="space-y-4 mb-6">
@@ -447,20 +447,20 @@ export default function CreateProductPage() {
                     }
                   }}
                   className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black shadow-sm outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-charcoal-light dark:bg-[#111111] dark:text-white dark:focus:border-gold dark:focus:ring-gold/20"
-                  placeholder="Add a new field (e.g., Warranty, Weight)"
+                  placeholder="Thêm trường mới (VD: Ram, Ổ cứng, Màu sắc)"
                 />
                 <button
                   type="button"
                   onClick={handleAddField}
                   className="px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 dark:bg-gold dark:text-charcoal dark:hover:bg-gold-light transition-colors flex items-center gap-2 whitespace-nowrap"
                 >
-                  <Plus size={16} /> Add
+                  <Plus size={16} /> Thêm
                 </button>
               </div>
               
               {/* Image upload and preview */}
               <div className="mt-6">
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Images</h4>
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Hình ảnh</h4>
 
                 <div className="flex items-center gap-3 mb-4">
                   <input
@@ -478,14 +478,14 @@ export default function CreateProductPage() {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={img.previewUrl || (img.originalUrl.startsWith('/uploads') ? `${API_BASE_URL}${img.originalUrl}` : img.originalUrl)}
-                        alt="preview"
+                        alt="Xem trước"
                         className="w-full h-24 object-cover"
                       />
 
                       <div className="absolute top-1 right-1 flex gap-1">
                         <button
                           type="button"
-                          title="Set as thumbnail"
+                          title="Đặt làm ảnh đại diện"
                           onClick={() => handleSetThumbnail(img.id)}
                           className={`p-1 rounded-full bg-white/80 dark:bg-black/60 ${img.isThumbnail ? 'ring-2 ring-blue-500' : ''}`}
                         >
@@ -494,7 +494,7 @@ export default function CreateProductPage() {
 
                         <button
                           type="button"
-                          title="Remove"
+                          title="Xoá"
                           onClick={() => handleRemoveImage(img.id)}
                           className="p-1 rounded-full bg-white/80 dark:bg-black/60"
                         >
@@ -515,11 +515,11 @@ export default function CreateProductPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2 border-t border-gray-100 dark:border-charcoal-light mt-6">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Save as draft to edit later, or publish to make visible on the storefront.
+                Lưu nháp để chỉnh sửa sau, hoặc xuất bản để hiển thị trên trang chủ.
               </p>
             </div>
             <Button type="submit" variant="primary" className="w-full sm:w-auto" disabled={loading}>
-              {loading ? 'Saving...' : 'Save Product'}
+              {loading ? 'Đang lưu...' : 'Lưu sản phẩm'}
             </Button>
           </div>
         </form>

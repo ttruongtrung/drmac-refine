@@ -28,11 +28,11 @@ export default function ContactPage() {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Invalid email address';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
-    else if (formData.message.trim().length < 10) newErrors.message = 'Message must be at least 10 characters';
+    if (!formData.name.trim()) newErrors.name = 'Vui lòng nhập họ tên';
+    if (!formData.email.trim()) newErrors.email = 'Vui lòng nhập email';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email không hợp lệ';
+    if (!formData.message.trim()) newErrors.message = 'Vui lòng nhập nội dung';
+    else if (formData.message.trim().length < 10) newErrors.message = 'Nội dung phải có ít nhất 10 ký tự';
     return newErrors;
   };
 
@@ -69,17 +69,17 @@ export default function ContactPage() {
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       setErrors({});
     } catch {
-      setApiError('Something went wrong. Please try again later.');
+      setApiError('Có lỗi xảy ra. Vui lòng thử lại sau.');
     } finally {
       setSubmitting(false);
     }
   };
 
   const storeInfo = [
-    { icon: MapPin, label: 'Address', value: '119 3/2 Street, TP HCM, Vietnam' },
-    { icon: Phone, label: 'Phone', value: '+84 28 1234 5678' },
+    { icon: MapPin, label: 'Địa chỉ', value: '119 Đường 3/2, TP HCM, Việt Nam' },
+    { icon: Phone, label: 'Điện thoại', value: '+84 28 1234 5678' },
     { icon: Mail, label: 'Email', value: 'contact@drmac.vn' },
-    { icon: Clock, label: 'Working Hours', value: 'Mon - Sat: 9:00 AM - 9:00 PM' },
+    { icon: Clock, label: 'Giờ làm việc', value: 'Thứ 2 - Thứ 7: 9:00 - 21:00' },
   ];
 
   return (
@@ -87,11 +87,10 @@ export default function ContactPage() {
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">
-          Contact Us
+          Liên hệ
         </h1>
         <p className="text-gray-500 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-          Have a question, feedback, or need assistance? We&apos;d love to hear from you.
-          Get in touch with the Dr.Mac team.
+          Bạn có câu hỏi, góp ý hay cần hỗ trợ? Hãy liên hệ với đội ngũ Dr.Mac.
         </p>
       </div>
 
@@ -122,22 +121,22 @@ export default function ContactPage() {
               <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6">
                 <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
               </div>
-              <h2 className="text-2xl font-bold text-black dark:text-white mb-3">Message Sent!</h2>
+              <h2 className="text-2xl font-bold text-black dark:text-white mb-3">Đã gửi tin nhắn!</h2>
               <p className="text-gray-500 dark:text-gray-400 max-w-md mb-8">
-                Thank you for reaching out! We&apos;ve received your message and will get back to you within 24 hours.
+                Cảm ơn bạn đã liên hệ! Chúng tôi đã nhận được tin nhắn và sẽ phản hồi trong vòng 24 giờ.
               </p>
               <Button
                 onClick={() => setSubmitted(false)}
                 variant="primary"
               >
-                Send Another Message
+                Gửi tin nhắn khác
               </Button>
             </div>
           ) : (
             <>
-              <h2 className="text-2xl font-bold text-black dark:text-white mb-2">Get in Touch</h2>
+              <h2 className="text-2xl font-bold text-black dark:text-white mb-2">Gửi tin nhắn</h2>
               <p className="text-gray-500 dark:text-gray-400 mb-8">
-                Fill out the form below and we&apos;ll get back to you as soon as possible.
+                Điền vào mẫu bên dưới, chúng tôi sẽ phản hồi sớm nhất có thể.
               </p>
 
               {apiError && (
@@ -149,7 +148,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-black dark:text-white mb-1.5">
-                      Full Name <span className="text-red-500">*</span>
+                      Họ và tên <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -170,7 +169,7 @@ export default function ContactPage() {
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-black dark:text-white mb-1.5">
-                      Email Address <span className="text-red-500">*</span>
+                      Địa chỉ Email <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
@@ -192,7 +191,7 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-black dark:text-white mb-1.5">
-                    Phone Number <span className="text-gray-400 text-xs">(optional)</span>
+                    Số điện thoại <span className="text-gray-400 text-xs">(không bắt buộc)</span>
                   </label>
                   <input
                     type="tel"
@@ -207,7 +206,7 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-black dark:text-white mb-1.5">
-                    Subject <span className="text-gray-400 text-xs">(optional)</span>
+                    Chủ đề <span className="text-gray-400 text-xs">(không bắt buộc)</span>
                   </label>
 
 
@@ -231,12 +230,12 @@ export default function ContactPage() {
                       onChange={handleChange}
                       className="w-full px-4 py-3 rounded-xl bg-white dark:bg-charcoal border border-gray-300 dark:border-charcoal-light text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-gold transition-all appearance-none cursor-pointer pr-10"
                     >
-                      <option value="">Select a subject...</option>
-                      <option value="product-inquiry">Product Inquiry</option>
-                      <option value="order-support">Order Support</option>
-                      <option value="repair-service">Repair & Service</option>
-                      <option value="feedback">Feedback & Suggestions</option>
-                      <option value="other">Other</option>
+                      <option value="">Chọn chủ đề...</option>
+                      <option value="product-inquiry">Tư vấn sản phẩm</option>
+                      <option value="order-support">Hỗ trợ đơn hàng</option>
+                      <option value="repair-service">Sửa chữa & Bảo dưỡng</option>
+                      <option value="feedback">Góp ý & Đánh giá</option>
+                      <option value="other">Khác</option>
                     </select>
                     <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 dark:text-gray-500">
@@ -248,7 +247,7 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-black dark:text-white mb-1.5">
-                    Message <span className="text-red-500">*</span>
+                    Nội dung <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -269,7 +268,7 @@ export default function ContactPage() {
 
                 <Button type="submit" variant="primary" className="w-full h-12 text-base gap-2" disabled={submitting}>
                   <Send className="w-4 h-4" />
-                  {submitting ? 'Sending...' : 'Send Message'}
+                  {submitting ? 'Đang gửi...' : 'Gửi tin nhắn'}
                 </Button>
               </form>
             </>

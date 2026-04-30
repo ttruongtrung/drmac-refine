@@ -49,12 +49,12 @@ export default function CategoryManagementPage() {
     const normalizedSlug = slug.trim() || slugify(normalizedName);
 
     if (!normalizedName) {
-      setError('Category name is required.');
+      setError('Vui lòng nhập tên danh mục.');
       return;
     }
 
     if (categories.some((category) => category.slug === normalizedSlug || category.name.toLowerCase() === normalizedName.toLowerCase())) {
-      setError('A category with that name or slug already exists.');
+      setError('Danh mục với tên hoặc slug này đã tồn tại.');
       return;
     }
 
@@ -69,17 +69,17 @@ export default function CategoryManagementPage() {
       setName('');
       setSlug('');
     } catch {
-      setError('Failed to create category. Please try again.');
+      setError('Tạo danh mục thất bại. Vui lòng thử lại.');
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Remove this category? Products assigned to it may be affected.')) return;
+    if (!confirm('Xoá danh mục này? Sản phẩm thuộc danh mục có thể bị ảnh hưởng.')) return;
     try {
       await apiClient.deleteCategory(id);
       setCategories((prev) => prev.filter((category) => category.id !== id));
     } catch {
-      alert('Failed to delete category.');
+      alert('Xoá danh mục thất bại.');
     }
   };
 
@@ -87,22 +87,22 @@ export default function CategoryManagementPage() {
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">Manage Categories</h1>
+          <h1 className="text-3xl font-bold text-black dark:text-white border-l-4 border-blue-600 dark:border-gold pl-3">Quản lý Danh mục</h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-2xl">
-            Add, edit, and remove product categories used by the admin create product flow.
+            Thêm, sửa và xoá danh mục sản phẩm.
           </p>
         </div>
 
         <Link href="/inventory" className="inline-flex">
           <Button variant="secondary" className="gap-2">
-            <ArrowLeft size={16} /> Back to Inventory
+            <ArrowLeft size={16} /> Quay lại Kho hàng
           </Button>
         </Link>
       </div>
 
       <div className="grid gap-8">
         <div className="bg-white dark:bg-charcoal border border-gray-100 dark:border-charcoal-light shadow-sm rounded-xl p-8">
-          <h2 className="text-xl font-semibold text-black dark:text-white mb-4">Create Category</h2>
+          <h2 className="text-xl font-semibold text-black dark:text-white mb-4">Tạo danh mục</h2>
           {error && (
             <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 dark:border-red-900/40 dark:bg-red-950/30 p-4 text-sm text-red-800 dark:text-red-200">
               {error}
@@ -110,7 +110,7 @@ export default function CategoryManagementPage() {
           )}
           <form onSubmit={handleAdd} className="grid gap-6 sm:grid-cols-2">
             <label className="space-y-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-              Category Name
+              Tên danh mục
               <input
                 value={name}
                 onChange={(event) => setName(event.target.value)}
@@ -131,7 +131,7 @@ export default function CategoryManagementPage() {
 
             <div className="sm:col-span-2 flex justify-end">
               <Button type="submit" variant="primary">
-                <Plus size={16} /> Add Category
+                <Plus size={16} /> Thêm danh mục
               </Button>
             </div>
           </form>
@@ -139,23 +139,23 @@ export default function CategoryManagementPage() {
 
         <div className="bg-white dark:bg-charcoal border border-gray-100 dark:border-charcoal-light shadow-sm rounded-xl overflow-hidden">
           <div className="px-8 py-6 border-b border-gray-100 dark:border-charcoal-light">
-            <h2 className="text-xl font-semibold text-black dark:text-white">Category Catalog</h2>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Categories available for product creation and storefront filtering.</p>
+            <h2 className="text-xl font-semibold text-black dark:text-white">Danh sách danh mục</h2>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Các danh mục có sẵn cho sản phẩm và bộ lọc trên trang chủ.</p>
           </div>
           <div className="overflow-x-auto">
             {loading ? (
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading categories...</div>
+              <div className="p-8 text-center text-gray-500 dark:text-gray-400">Đang tải danh mục...</div>
             ) : categories.length === 0 ? (
               <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                No categories yet. Create one above.
+                Chưa có danh mục nào. Tạo danh mục ở trên.
               </div>
             ) : (
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-gray-50 dark:bg-charcoal border-b border-gray-100 dark:border-charcoal-light">
-                    <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Name</th>
+                    <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Tên</th>
                     <th className="p-4 text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Slug</th>
-                    <th className="p-4 text-right text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Actions</th>
+                    <th className="p-4 text-right text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wider">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-charcoal-light">
@@ -169,7 +169,7 @@ export default function CategoryManagementPage() {
                           onClick={() => handleDelete(category.id)}
                           className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors"
                         >
-                          <Trash2 size={16} /> Remove
+                          <Trash2 size={16} /> Xoá
                         </button>
                       </td>
                     </tr>
