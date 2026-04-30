@@ -8,7 +8,7 @@ async function bootstrap() {
   const frontendUrls = (process.env.FRONTEND_URL || 'http://localhost:3000')
     .split(',')
     .map((url) => url.trim());
-  frontendUrls.push('https://drmac-refine.vercel.app');
+  frontendUrls.push('https://drmac-refine.vercel.app', 'http://localhost:3000');
   app.enableCors({
     origin: frontendUrls,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],

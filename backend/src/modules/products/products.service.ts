@@ -25,8 +25,24 @@ export class ProductsService {
     return this.productsRepository.save(product);
   }
 
-  async findAll(query?: any): Promise<Product[]> {
-    const products = await this.productsRepository.find({ relations: ['media', 'category'] });
+  async findAll(query?: { category?: string }): Promise<Product[]> {
+    const where: any = {};
+
+    // Filter by category slug
+    if (query?.category) {
+      const category = await this.productsRepository.manager
+        .getRepository('Category')
+        .findOne({ where: { slug: query.category } });
+      if (category) {
+        where.categoryId = category.id;
+      }
+    }
+
+    const products = await this.productsRepository.find({
+      where,
+      relations: ['media', 'category'],
+    });
+
     // Add convenience thumbnailUrl to each product
     return products.map(product => {
       (product as any).thumbnailUrl = product.media?.find(m => m.isThumbnail)?.originalUrl || product.media?.[0]?.originalUrl || null;

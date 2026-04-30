@@ -1,22 +1,24 @@
 import Link from 'next/link';
 import { Heart, Star, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { API_BASE_URL } from '@/lib/api-client';
 
 export interface ProductCardProps {
   id: string;
   title: string;
   price: string;
   img: string;
-  rating: string;
-  tags: string[];
+  rating?: string;
+  tags?: string[];
   badge?: string;
   className?: string;
+  slug?: string;
 }
 
-export function ProductCard({ id, title, price, img, rating, tags, badge, className }: ProductCardProps) {
+export function ProductCard({ id, title, price, img, rating, tags, badge, className, slug }: ProductCardProps) {
   return (
     <Link
-      href={`/item/${id}`}
+      href={`/item/${slug || id}`}
       className={cn(
         "block bg-white dark:bg-charcoal rounded-[32px] shadow-sm border border-gray-100 dark:border-charcoal-light hover:shadow-md transition-all duration-300 group/card",
         className
@@ -34,9 +36,10 @@ export function ProductCard({ id, title, price, img, rating, tags, badge, classN
         </button>
         {(() => {
           const placeholder = 'https://via.placeholder.com/256?text=Image+not+available';
+          const src = img.startsWith('/uploads') ? `${API_BASE_URL}${img}` : img;
           return (
             <img
-              src={img}
+              src={src}
               alt={title}
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = placeholder;
@@ -55,17 +58,21 @@ export function ProductCard({ id, title, price, img, rating, tags, badge, classN
 
         <div className="flex justify-between items-center text-xs font-medium text-gray-400">
           <div className="flex items-center gap-1.5">
-            {tags.map((tag, idx) => (
+            {tags && tags.length > 0 ? tags.map((tag, idx) => (
               <span key={idx} className="flex items-center gap-1.5">
                 {tag}
                 {idx < tags.length - 1 && <span>•</span>}
               </span>
-            ))}
+            )) : (
+              <span className="text-gray-400 truncate max-w-[120px]">{slug || 'Explore'}</span>
+            )}
           </div>
-          <div className="flex items-center gap-1 text-black dark:text-white">
-            <Star size={12} className="fill-yellow-400 text-yellow-400" />
-            <span className="font-bold text-[11px]">{rating}</span>
-          </div>
+          {rating && (
+            <div className="flex items-center gap-1 text-black dark:text-white">
+              <Star size={12} className="fill-yellow-400 text-yellow-400" />
+              <span className="font-bold text-[11px]">{rating}</span>
+            </div>
+          )}
         </div>
       </div>
 

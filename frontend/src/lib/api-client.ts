@@ -45,8 +45,10 @@ export const apiClient = {
   getProduct: (id: string) =>
     apiCall('GET', `/admin/products/${id}`),
 
-  getAllProducts: () =>
-    apiCall('GET', '/products'),
+  getAllProducts: (params?: { category?: string }) => {
+    const query = params?.category ? `?category=${encodeURIComponent(params.category)}` : '';
+    return apiCall('GET', `/products${query}`);
+  },
 
   updateProduct: (id: string, productData: unknown) =>
     apiCall('PUT', `/admin/products/${id}`, productData),
@@ -80,6 +82,12 @@ export const apiClient = {
 
   getAllCategories: () =>
     apiCall('GET', '/admin/categories'),
+
+  getCategoriesPublic: () =>
+    apiCall('GET', '/categories'),
+
+  getCategoryBySlug: (slug: string) =>
+    apiCall('GET', `/categories/${slug}`),
 
   updateCategory: (id: string, categoryData: unknown) =>
     apiCall('PUT', `/admin/categories/${id}`, categoryData),

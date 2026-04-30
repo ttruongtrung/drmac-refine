@@ -4,92 +4,11 @@ import { useRef } from 'react';
 
 interface ProductRowProps {
   title: string;
-  categoryFilter?: string;
+  products: ProductCardProps[];
 }
 
-export function ProductRow({ title, categoryFilter }: ProductRowProps) {
-  // Mock data for products matching the new reference image style
-  const products: ProductCardProps[] = [
-    {
-      id: 'prod-1',
-      title: 'MacBook Pro 14" M3',
-      price: '$1,599',
-      rating: '4.9',
-      tags: ['M3', '512GB'],
-      badge: 'POPULAR',
-      img: '/images/macbook-001.jpg'
-    },
-    {
-      id: 'prod-2',
-      title: 'MacBook Pro 16" M3 Max',
-      price: '$2,499',
-      rating: '5.0',
-      tags: ['M3 MAX', '1TB'],
-      badge: 'NEW ARRIVAL',
-      img: '/images/macbook-002.jpg'
-    },
-    {
-      id: 'prod-3',
-      title: 'MacBook Pro 14" M3 Pro',
-      price: '$1,999',
-      rating: '4.8',
-      tags: ['M3 PRO', '512GB'],
-      img: '/images/macbook-001.jpg'
-    },
-    {
-      id: 'prod-4',
-      title: 'MacBook Air 15" M3',
-      price: '$1,299',
-      rating: '4.7',
-      tags: ['M3', '256GB'],
-      badge: 'BEST VALUE',
-      img: '/images/macbook-001.jpg'
-    },
-    {
-      id: 'prod-5',
-      title: 'MacBook Air 13" M3',
-      price: '$1,299',
-      rating: '4.7',
-      tags: ['M3', '256GB'],
-      badge: 'BEST VALUE',
-      img: '/images/macbook-001.jpg'
-    },
-    {
-      id: 'prod-6',
-      title: 'MacBook Air 13" M3',
-      price: '$1,299',
-      rating: '4.7',
-      tags: ['M3', '256GB'],
-      badge: 'BEST VALUE',
-      img: '/images/macbook-001.jpg'
-    },
-    {
-      id: 'prod-7',
-      title: 'MacBook Air 13" M3',
-      price: '$1,299',
-      rating: '4.7',
-      tags: ['M3', '256GB'],
-      badge: 'BEST VALUE',
-      img: '/images/macbook-001.jpg'
-    },
-    {
-      id: 'prod-8',
-      title: 'MacBook Air 13" M3',
-      price: '$1,299',
-      rating: '4.7',
-      tags: ['M3', '256GB'],
-      badge: 'BEST VALUE',
-      img: '/images/macbook-001.jpg'
-    }
-  ];
-
-  // Apply basic mock filtering if a filter is active
-  const filteredProducts = products.filter(p => {
-    if (!categoryFilter || categoryFilter === 'All') return true;
-    if (categoryFilter === '14-inch') return p.title.includes('14"');
-    if (categoryFilter === '16-inch') return p.title.includes('16"');
-    return true;
-  });
+export function ProductRow({ title, products }: ProductRowProps) {
+  const filteredProducts = products;
 
   // Ref to the scroll container for arrow navigation
   const scrollRef = useRef<HTMLDivElement>(null);
