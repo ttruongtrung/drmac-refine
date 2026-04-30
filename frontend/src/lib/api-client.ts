@@ -1,4 +1,6 @@
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://drmac-refine-api.vercel.app/';
+// Normalize: remove trailing slash to avoid double-slash in URL construction
+const rawUrl = process.env.NEXT_PUBLIC_API_URL || 'https://drmac-refine-api.vercel.app';
+export const API_BASE_URL = rawUrl.replace(/\/+$/, '');
 
 interface ApiResponse<T> {
   data?: T;
