@@ -30,6 +30,7 @@ export function Navbar() {
           <Link href="/search?category=macbook" className="hover:text-black dark:hover:text-gold transition-colors">MacBook</Link>
           <Link href="/search?category=ipad" className="hover:text-black dark:hover:text-gold transition-colors">iPad</Link>
           <Link href="/search?category=accessories" className="hover:text-black dark:hover:text-gold transition-colors">Accessories</Link>
+          <Link href="/contact" className="hover:text-black dark:hover:text-gold transition-colors">Contact</Link>
         </div>
       </div>
 

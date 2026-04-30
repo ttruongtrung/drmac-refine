@@ -70,14 +70,15 @@ export function ProductCard({ id, title, price, img, rating, tags, badge, classN
       </div>
 
       {/* Action Row */}
-      <div className="flex justify-between items-center p-6">
+      <div className="flex justify-between items-center px-6 pb-6 pt-2">
         <p className="text-xl font-bold text-black dark:text-white">
           {price}
         </p>
-        <div className="bg-gray-100 dark:bg-charcoal-light text-black dark:text-white p-2 rounded-xl group-hover/card:bg-black group-hover/card:text-white dark:group-hover/card:bg-gold dark:group-hover/card:text-black transition-colors">
+        <div className="bg-gray-100 dark:bg-charcoal-light text-black dark:text-white p-2 rounded-xl group-hover/card:bg-black group-hover/card:text-white dark:group-hover/card:bg-gold dark:group-hover/card:text-black transition-colors mr-1">
           <ChevronRight size={18} />
         </div>
       </div>
     </Link>
   );
 }
+

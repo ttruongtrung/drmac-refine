@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 interface ApiResponse<T> {
   data?: T;
@@ -7,7 +7,7 @@ interface ApiResponse<T> {
 }
 
 async function apiCall<T>(
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   endpoint: string,
   body?: unknown
 ): Promise<ApiResponse<T>> {
@@ -84,6 +84,22 @@ export const apiClient = {
 
   deleteCategory: (id: string) =>
     apiCall('DELETE', `/admin/categories/${id}`),
+
+  // Contacts / Leads
+  createContact: (contactData: unknown) =>
+    apiCall('POST', '/contacts', contactData),
+
+  getAllContacts: () =>
+    apiCall('GET', '/admin/contacts'),
+
+  getContact: (id: string) =>
+    apiCall('GET', `/admin/contacts/${id}`),
+
+  updateContact: (id: string, contactData: unknown) =>
+    apiCall('PATCH', `/admin/contacts/${id}`, contactData),
+
+  deleteContact: (id: string) =>
+    apiCall('DELETE', `/admin/contacts/${id}`),
 };
 
 export type { ApiResponse };

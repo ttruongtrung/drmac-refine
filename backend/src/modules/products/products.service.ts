@@ -1,19 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { ProductMedia } from './entities/product-media.entity';
+import { SupabaseService } from '../supabase/supabase.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UploadProductImageDto, SetThumbnailDto } from './dto/upload-product-image.dto';
 
 @Injectable()
 export class ProductsService {
+  private readonly logger = new Logger(ProductsService.name);
+
   constructor(
     @InjectRepository(Product)
     private productsRepository: Repository<Product>,
     @InjectRepository(ProductMedia)
     private mediaRepository: Repository<ProductMedia>,
+    private supabaseService: SupabaseService,
   ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
@@ -22,8 +26,12 @@ export class ProductsService {
   }
 
   async findAll(query?: any): Promise<Product[]> {
-    // Basic implementation; would expand with filtering based on `query`
-    return this.productsRepository.find({ relations: ['media', 'category'] });
+    const products = await this.productsRepository.find({ relations: ['media', 'category'] });
+    // Add convenience thumbnailUrl to each product
+    return products.map(product => {
+      (product as any).thumbnailUrl = product.media?.find(m => m.isThumbnail)?.originalUrl || product.media?.[0]?.originalUrl || null;
+      return product;
+    });
   }
 
   async findOneBySlug(slug: string): Promise<Product> {
@@ -34,6 +42,8 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`Product with slug ${slug} not found`);
     }
+    // Add a convenience field for the thumbnail/main image
+    (product as any).thumbnailUrl = product.media?.find(m => m.isThumbnail)?.originalUrl || product.media?.[0]?.originalUrl || null;
     return product;
   }
 
@@ -45,6 +55,8 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
+    // Add a convenience field for the thumbnail/main image
+    (product as any).thumbnailUrl = product.media?.find(m => m.isThumbnail)?.originalUrl || product.media?.[0]?.originalUrl || null;
     return product;
   }
 
@@ -134,6 +146,15 @@ export class ProductsService {
 
     if (!media) {
       throw new NotFoundException(`Image #${mediaId} not found for product #${productId}`);
+    }
+
+    // Delete from Supabase if it's a Supabase URL
+    if (media.originalUrl?.includes('supabase')) {
+      try {
+        await this.supabaseService.deleteFile(media.originalUrl);
+      } catch (err) {
+        this.logger.warn(`Failed to delete file from Supabase: ${err.message}`);
+      }
     }
 
     await this.mediaRepository.remove(media);
