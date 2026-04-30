@@ -7,7 +7,8 @@ async function bootstrap() {
   // Enable CORS for frontend communication
   const frontendUrls = (process.env.FRONTEND_URL || 'http://localhost:3000')
     .split(',')
-    .map(url => url.trim());
+    .map((url) => url.trim());
+  frontendUrls.push('https://drmac-refine.vercel.app');
   app.enableCors({
     origin: frontendUrls,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
