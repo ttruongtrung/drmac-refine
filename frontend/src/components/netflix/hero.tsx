@@ -24,7 +24,7 @@ export function Hero() {
       <div className="relative z-10 max-w-2xl">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
           Dr.Mac — <br/>
-          <span className="text-gold">Sức mạnh. Tái định nghĩa.</span>
+          <span className="text-rose">Sức mạnh. Tái định nghĩa.</span>
         </h1>
         <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-lg">
           Trung tâm mua sắm và sửa chữa Apple chính hãng tại TP.HCM.
@@ -33,7 +33,7 @@ export function Hero() {
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => scrollTo('services-section')}
-            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gold text-charcoal font-bold text-lg hover:bg-gold-light transition-colors"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-rose text-navy font-bold text-lg hover:bg-rose-light transition-colors"
           >
             Dịch vụ sửa chữa
           </button>

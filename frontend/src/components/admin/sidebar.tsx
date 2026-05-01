@@ -20,11 +20,11 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-white dark:bg-charcoal border-r border-gray-100 dark:border-charcoal-light flex flex-col justify-between hidden md:flex fixed top-0 left-0 transition-colors">
+    <aside className="w-64 min-h-screen bg-white dark:bg-navy border-r border-gray-100 dark:border-navy-light flex flex-col justify-between hidden md:flex fixed top-0 left-0 transition-colors">
       <div>
-        <div className="h-20 flex items-center px-8 border-b border-gray-100 dark:border-charcoal-light">
-          <Link href="/" className="text-blue-600 dark:text-gold font-bold text-2xl tracking-wider">
-            Dr.Mac <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Quản trị</span>
+        <div className="h-20 flex items-center px-8 border-b border-gray-100 dark:border-navy-light">
+          <Link href="/" className="text-navy dark:text-rose font-bold text-2xl tracking-wider">
+            Dr.Mac <span className="text-sm font-normal text-gray-500 dark:text-taupe">Quản trị</span>
           </Link>
         </div>
         
@@ -39,8 +39,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors',
                   active
-                    ? 'text-blue-600 dark:text-gold bg-blue-50 dark:bg-[#1a1a1a]'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-charcoal-light'
+                    ? 'text-navy dark:text-rose bg-blue-50 dark:bg-navy-light'
+                    : 'text-gray-600 dark:text-taupe hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-navy-light'
                 )}
               >
                 <Icon size={20} />
@@ -51,8 +51,8 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <div className="p-4 border-t border-gray-100 dark:border-charcoal-light">
-        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg font-medium transition-colors">
+      <div className="p-4 border-t border-gray-100 dark:border-navy-light">
+        <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-taupe hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg font-medium transition-colors">
           <LogOut size={20} />
           Đăng xuất
         </button>

@@ -36,7 +36,9 @@ export function ProductCard({ id, title, price, img, rating, tags, badge, classN
         </button>
         {(() => {
           const placeholder = 'https://via.placeholder.com/256?text=Image+not+available';
-          const src = img.startsWith('/uploads') ? `${API_BASE_URL}${img}` : img;
+          const src = img
+            ? (img.startsWith('/uploads') ? `${API_BASE_URL}${img}` : img)
+            : placeholder;
           return (
             <img
               src={src}

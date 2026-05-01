@@ -2,31 +2,59 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* 
+ * Dr.Mac Brand Color Palette
+ * navy:   #202940 — Primary dark / backgrounds
+ * brown:  #4B4038 — Secondary / warm accents  
+ * taupe:  #9A8678 — Neutral / muted elements, text
+ * rose:   #CAAA98 — Accent / highlights, CTAs
+ */
+
 @theme inline {
-  --color-gold: #D4AF37;
-  --color-gold-light: #F3E5AB;
-  --color-gold-dark: #996515;
-  --color-charcoal: #121212;
-  --color-charcoal-light: #1E1E1E;
+  /* Brand Colors */
+  --color-navy: #202940;
+  --color-navy-light: #2A3655;
+  --color-brown: #4B4038;
+  --color-brown-light: #5F5248;
+  --color-taupe: #9A8678;
+  --color-taupe-light: #B3A294;
+  --color-rose: #CAAA98;
+  --color-rose-light: #DBC0B0;
+  --color-rose-dark: #B8927E;
+
+  /* Fonts */
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Keep legacy aliases for backward compatibility */
+  --color-gold: #CAAA98;
+  --color-gold-light: #DBC0B0;
+  --color-gold-dark: #B8927E;
+  --color-charcoal: #202940;
+  --color-charcoal-light: #2A3655;
 }
 
 /* Custom base styles for themes */
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #111827; /* gray-900 */
+    --background: #F7F5F2;
+    --foreground: #202940;
   }
 
   .dark {
-    --background: #141414;
-    --foreground: #f5f5f5;
+    --background: #202940;
+    --foreground: #F7F5F2;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
   }
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -34,14 +62,14 @@ body {
 /* Glassmorphism utility */
 @layer utilities {
   .glass-panel {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(247, 245, 242, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(32, 41, 64, 0.1);
   }
 
   .dark .glass-panel {
-    background: rgba(30, 30, 30, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(42, 54, 85, 0.7);
+    border: 1px solid rgba(154, 134, 120, 0.2);
   }
 }
